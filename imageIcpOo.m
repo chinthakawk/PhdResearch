@@ -7,10 +7,10 @@ close all;
 clear all;
 clc;
  
-fol = 'E:\Shared\102\20160218\Den\set2\14_calRtMatsFromMatchingFrames\';
+fol = 'C:\FromE\20161003extra\test5frames\03_f1\';
 
-rk = 1; % reference kinect
-sk = 2; % source kinect
+rk = 3; % reference kinect
+sk = 4; % source kinect
 
 p = 3; % no. of ginputs
 

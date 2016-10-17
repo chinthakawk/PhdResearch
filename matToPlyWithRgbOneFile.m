@@ -6,8 +6,8 @@ clear all;
 
 step = 1;
 
-folder = '/Volumes/Chin_HD2/Shared/102/20160218/Ankha/set01/01/06_f1_successiveIcp/align/';
-fileName = '876543.mat';
+folder = 'E:\Shared\519\20161003\nick\03_f1Oo/';
+fileName = '2_1439484_rgbd_oO-nR_oP=0.15_pDs=6_pD=5.3548.mat';
 disp(fileName);
 load(strcat(folder, fileName));
 

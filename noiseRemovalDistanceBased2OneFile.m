@@ -6,10 +6,10 @@
 
 clear all;
 
-fol = '/Volumes/Chin_HD2/Shared/102/20160218/Ankha2/01/12_mf_nr/';
+fol = 'E:\Shared\519\20161003\nick\03_f1Oo\';
 fol2 = fol;
-name = '8_1656062_oO_refined.mat';
-oP = 0.05;
+name = '8_1439486_rgbd_oO.mat';
+oP = 0.15;
 
 s = 1;
 p = 1;

@@ -8,8 +8,8 @@
 
 clc; clear;
 
-fol = 'E:\Shared\519\20160727\Chinthaka\03_MatchingFrames/';
-files = dir(strcat(fol, '1*.mat'));
+fol = '/Volumes/Chin_HD2/Shared/102/20160218/Den/set2/01_extracted/';
+files = dir(strcat(fol, '8*.mat'));
 
 name = files(1).name;
 file = strcat(fol, name);

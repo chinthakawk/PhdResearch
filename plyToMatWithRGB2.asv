@@ -1,0 +1,45 @@
+% 20150104
+% this file reads ply file and saves as a mat file
+
+clc; clear all;
+
+path = 'D:\Shared\RemoteToy\Auto\All\';
+files = dir(strcat(path, '*.ply'));
+
+for f = 1:numel(files)
+    name = files(f).name;
+    fileName = strcat(path, name);
+    fprintf('\n%d\t%s',f,fileName);
+    
+    if exist(strcat(path,name(1:numel(name)-4),'.mat'), 'file') == 2
+        disp(strcat(path,name(1:numel(name)-4),'.mat exists'));
+        continue;
+    end
+    
+    idx = 1;
+    fid = fopen(fileName, 'r');
+    while isempty(strfind(fgets(fid), 'end_header'))
+        idx = idx + 1;
+    end
+    fclose(fid);
+
+    data = textread(fileName, '%s','delimiter', '\n');
+    data = data(idx+1:length(data),1);
+
+    data = (cellfun(@(x) strread(x,'%s','delimiter',' '), data, 'UniformOutput', false));
+
+%     for i = 1:length(data)-1 % panda00
+%         pc(i, 1) = (str2double(cellstr(data{i,1}{1,1})));
+%         pc(i, 2) = (str2double(cellstr(data{i,1}{2,1})));
+%         pc(i, 3) = (str2double(cellstr(data{i,1}{3,1})));
+%         pc(i, 4) = (str2double(cellstr(data{i,1}{4,1})));
+%         pc(i, 5) = (str2double(cellstr(data{i,1}{5,1})));
+%         pc(i, 6) = (str2double(cellstr(data{i,1}{6,1})));
+%     end
+    
+    save(strcat(path,name(1:numel(name)-4),'.mat'), 'pc');
+    clear pc;
+    clear data;
+end
+
+fprintf('\nDone\n');

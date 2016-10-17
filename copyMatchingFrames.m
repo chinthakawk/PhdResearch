@@ -32,56 +32,56 @@ fprintf(fid,'\n\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d',mf);
 
 % get files names
 
-filest = dir(strcat(fol, '1_*.jpg'));
+filest = dir(strcat(fol, '1_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = {filest.name}';
 clear filesNames idx;
 
-filest = dir(strcat(fol, '2_*.jpg'));
+filest = dir(strcat(fol, '2_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '3_*.jpg'));
+filest = dir(strcat(fol, '3_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '4_*.jpg'));
+filest = dir(strcat(fol, '4_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '5_*.jpg'));
+filest = dir(strcat(fol, '5_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '6_*.jpg'));
+filest = dir(strcat(fol, '6_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '7_*.jpg'));
+filest = dir(strcat(fol, '7_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '8_*.jpg'));
+filest = dir(strcat(fol, '8_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
@@ -93,8 +93,7 @@ clear filesNames idx filest name;
 fprintf(fid,'\n\nmatching frames (K1 to K8)');
 
 i = 0;
-% while max(mf)<=size(files,1)
-while i<30
+while max(mf)<=size(files,1)
     i = i+1;
     fprintf('\n%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d',i,mf);
 
@@ -104,14 +103,8 @@ while i<30
         name = files{mf(j),j};
         fprintf(fid,'\t%s',name(1:9));
         
-        % copy jpg
         file = strcat(fol, name);
         file2 = strcat(fol2, name);
-        copyfile(file,file2);
-        
-        % copy txt
-        file = strcat(fol, name(1:numel(name)-3), 'txt');
-        file2 = strcat(fol2, name(1:numel(name)-3), 'txt');
         copyfile(file,file2);
     end
     mf = mf+1;

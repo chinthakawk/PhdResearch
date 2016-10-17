@@ -6,49 +6,20 @@ clear all;
 cam = [1,2,3,4,5,7,8];
 
 % for i = 1:numel(cam)
-path = 'E:\Shared\102\20160218\Den\set2\01_extracted\';
+path = 'D:\KinectData\20150620_Kolis\Kolis_SlowMoving\All\';
 files = dir(strcat(path, '*.ply'));
-
-filename = strcat(path, 'names.xlsx');
-
-n1 = [];
-n2 = [];
-n3 = [];
-n4 = [];
-n5 = [];
-n6 = [];
-n7 = [];
-n8 = [];
 
 for f = 1:numel(files)
     name = files(f).name;
-    if str2double(name(1))==1
-        n1 = [n1; str2double(name(3:9))];
-    elseif str2double(name(1))==2
-        n2 = [n2; str2double(name(3:9))];
-    elseif str2double(name(1))==3
-        n3 = [n3; str2double(name(3:9))];
-    elseif str2double(name(1))==4
-        n4 = [n4; str2double(name(3:9))];
-    elseif str2double(name(1))==5
-        n5 = [n5; str2double(name(3:9))];
-    elseif str2double(name(1))==6
-        n6 = [n6; str2double(name(3:9))];
-    elseif str2double(name(1))==7
-        n7 = [n7; str2double(name(3:9))];
-    elseif str2double(name(1))==8
-        n8 = [n8; str2double(name(3:9))];
-    end
+    names(mod(f,50)+1,str2num(name(1))) = str2num(name(3:9));
+    fileName = strcat(path, name);
+%         disp(fileName);
 end
 % end
 
-n = [n1 n2 n3 n4 n5 n6 n7 n8];
+names = sort(names,'ascend');
 
-xlswrite(filename,n);
-
-% names = sort(names,'ascend');
-% 
-% minT = min(names(1,:));
+minT = min(names(1,:));
 
 % names2(:,3) = names(:,3);
 % 

@@ -7,7 +7,7 @@ clear all;
 
 step = 1;
 
-folder = 'E:\Shared\519\20161003\nick\03_f1Oo\';
+folder = '/Volumes/Chin_HD2/Shared/102/20160218/Hannibal/01/06_f1_movedToOrigin/';
 files = dir(strcat(folder, '*.mat'));
 
 for f = 1:numel(files)

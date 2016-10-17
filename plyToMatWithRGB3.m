@@ -5,7 +5,7 @@
 
 clc; clear all;
 
-path = 'E:\Shared\519\20161003\nick\02_f1\';
+path = '/Volumes/Chin_HD2/Shared/102/20160218/Den/set2/01_extracted/';
 files = dir(strcat(path, '*.ply'));
 
 for f = 1:numel(files)

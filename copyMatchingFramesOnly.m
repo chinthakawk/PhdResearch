@@ -1,8 +1,8 @@
 % 2016/06/25
 % copy files
 
-fol = '/Volumes/Chin_HD3/01_Extracted/';
-fol2 = '/Volumes/Chin_HD3/matchingFrames/';
+fol = 'E:\Shared\102\20160218\Ankha2\01\01_ExtractedAll\';
+fol2 = 'E:\Shared\102\20160218\Ankha2\01\09_matchingFrames_20160627\';
 
 % % matching frames input (Den set1)
 % mf = [56 51 5 65 27 34 65 57];
@@ -11,8 +11,11 @@ fol2 = '/Volumes/Chin_HD3/matchingFrames/';
 % mf = [160 152 115 170 133 150 171 162];
 % mf = mf-100;
 
-% matching frames input (Ankhaa2)
-mf = [7	5 3	3 1 5 5 4];
+% % matching frames input (Ankhaa2)
+% mf = [52 44 11 51 23 31 60 56];
+
+% matching frames input Ankhaa2 2016/06/29
+
 
 fid = fopen(strcat(fol,'log_',datestr(now,'yyyymmddHHMM'),'.txt'),'w');
 fprintf(fid,datestr(now,'mm/dd/yyyy HH:MM:SS AM'));
@@ -32,56 +35,56 @@ fprintf(fid,'\n\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d',mf);
 
 % get files names
 
-filest = dir(strcat(fol, '1_*.jpg'));
+filest = dir(strcat(fol, '1_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = {filest.name}';
 clear filesNames idx;
 
-filest = dir(strcat(fol, '2_*.jpg'));
+filest = dir(strcat(fol, '2_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '3_*.jpg'));
+filest = dir(strcat(fol, '3_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '4_*.jpg'));
+filest = dir(strcat(fol, '4_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '5_*.jpg'));
+filest = dir(strcat(fol, '5_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '6_*.jpg'));
+filest = dir(strcat(fol, '6_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '7_*.jpg'));
+filest = dir(strcat(fol, '7_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
 files = [files {filest.name}'];
 clear filesNames idx;
 
-filest = dir(strcat(fol, '8_*.jpg'));
+filest = dir(strcat(fol, '8_*.mat'));
 filesNames = {filest.name};
 [~,idx] = sort(filesNames);
 filest = filest(idx);
@@ -93,8 +96,7 @@ clear filesNames idx filest name;
 fprintf(fid,'\n\nmatching frames (K1 to K8)');
 
 i = 0;
-% while max(mf)<=size(files,1)
-while i<30
+while max(mf)<=size(files,1)
     i = i+1;
     fprintf('\n%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d',i,mf);
 
@@ -104,14 +106,8 @@ while i<30
         name = files{mf(j),j};
         fprintf(fid,'\t%s',name(1:9));
         
-        % copy jpg
         file = strcat(fol, name);
         file2 = strcat(fol2, name);
-        copyfile(file,file2);
-        
-        % copy txt
-        file = strcat(fol, name(1:numel(name)-3), 'txt');
-        file2 = strcat(fol2, name(1:numel(name)-3), 'txt');
         copyfile(file,file2);
     end
     mf = mf+1;

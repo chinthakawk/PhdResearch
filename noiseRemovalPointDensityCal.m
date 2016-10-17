@@ -1,0 +1,95 @@
+% 20151130
+% how to remove the noises in the clouds, can we try with eucledian
+% change the density parameter based on the z value
+% 20150117: changed to use static point density pD
+
+clear all;
+
+fol = '/Users/mac/Documents/KinectData/Lab/6K/pooh_20150418_144135/frame0_20160117/05_oO_dBNR_manuallyRefinedManuallyAlignedBeforeICP/noiseRemoved2/';
+fol2 = fol;
+name = '1234.mat';
+% oP = 0.05; % outlier percentage
+oP = 0.25; % outlier percentage
+
+file = strcat(fol, name);
+    
+load(strcat(fol, name));
+
+fileID = fopen(strcat(fol2,name(1:numel(name)-4),'_oP=',num2str(oP),'.txt'),'w');
+fprintf(fileID,datestr(now,'mm/dd/yyyy HH:MM:SS AM'));
+fprintf(fileID,'\n\ndensity calculation for noise removal');
+fprintf(fileID,'\n\nfile:\t%s', strcat(fol, name));
+
+% b = 0.01;
+b = max(mean(abs(diff(pc(:,1:3)))));
+
+fprintf(fileID,'\nsearch cube size (b):\t%f', b);
+
+fprintf(fileID,'\noutlier percentage:\t%f', oP);
+
+density = zeros(size(pc,1),1);
+noise = [];
+zmin = min(pc(:,3));
+zmax = max(pc(:,3));
+
+i = 1;
+while i <= size(pc,1)
+    x = pc(i,1);
+    y = pc(i,2);
+    z = pc(i,3);
+    xl = x-b;
+    xh = x+b;
+    yl = y-b;
+    yh = y+b;
+    zl = z-b;
+    zh = z+b;
+
+    [r, c] = find(pc(:,1)>xl & pc(:,1)<xh & pc(:,2)>yl & pc(:,2)<yh ...
+        & pc(:,3)>zl & pc(:,3)<zh); 
+
+%     pD = (1 - (z-zmin)/zmax)*pDs;
+    
+    density(i,1) = numel(r);
+    
+%     if numel(r)<pD
+%         noise = [noise; i];
+%     end
+% 
+%     if (mod(i,10000)==0)
+%         fprintf('%d ',i);
+%     end
+    i = i+1;
+end
+
+% pc(noise,:) = [];
+%     
+% save(strcat(fol2,name(1:numel(name)-4),'_nR_pD=',num2str(pD),'.mat'),'pc');
+% clear pc noise;
+
+nbins = numel(unique(density));
+hm = min(unique(density));
+h = histc(density, (hm:nbins));
+% stem(h,'b')
+
+p = zeros(nbins,1);
+
+for j = 1:nbins
+    p(j,1) = h(j)/sum(h);
+end
+P = cumsum(p);
+
+pD = hm + find(P<oP,1,'last') - 1;
+fprintf(fileID,'\npoint density:\t\t%f', pD);
+
+figure;
+h1 = histogram(density, (hm:nbins));
+title(strcat(name, '     oP=', num2str(oP), '     b=', num2str(b),...
+    '     pD=', num2str(pD)));
+xlabel('Points density');
+ylabel('Frequency');
+hold on;
+line([pD pD], ylim, 'Color','r');
+
+saveas(h1, strcat(fol2,name(1:numel(name)-4),'_oP=',num2str(oP),'.jpg'))
+
+fprintf('\n');
